@@ -44,6 +44,13 @@ set_az_virtual_machine_expired_date() {
     echo "Successfully set VM '$LAB_NAME/$VM_NAME' to expire on UTC $EXPIRED_UTC_DATE"
 }
 
+# Ensure Azure CLI is installed and you are logged in
+if ! command -v az &> /dev/null
+then
+    echo "Azure CLI not found. Please install it and log in."
+    exit 1
+fi
+
 # Check if the user is already logged in
 if ! az account show > /dev/null 2>&1; then
     echo "Logging in to Azure..."
